@@ -1089,7 +1089,7 @@ eval("module.exports = {\"oscType\":{\"default\":\"sawtooth\"},\"fltFreq\":{\"de
       ctx.font = 'bold ' + (text.length == 2 ? '9' : '12') +'px "Unknown Font", sans-serif';
       ctx.textAlign = 'center'
       ctx.fillText(text, this.x + this.w * 0.5, this.y + this.h * 0.85);
-      
+      ctx.textAlign = 'start'
       
       ctx.strokeStyle = "black";
       ctx.lineWidth = 1;
