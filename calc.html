@@ -69,12 +69,14 @@
         <hr>
         <a href="https://twitter.com/OrangeTheKeyqa/status/1142429621285056519">出典</a>
         <script>
-            function calc(){
-                document.getElementById("res").textContent =
-                ["ド", "デ", "ネ", "ゲ", "レ", "ル", 
+            const pitch2 = ["シ# / ド", "ド‡", "ド# / レb", "レd", "レ", "レ‡", "レ# / ミb", "ミd", "ミ / ファb", "ミ‡ / ファd", "ミ# / ファ", "ファ‡", "ファ# / ソb", "ソd", "ソ", "ソ‡", "ソ# / ラb", "ラd", "ラ", "ラ‡", "ラ# / シb", "シd", "シ / ドb", "シ‡ / ドd"];
+            const pitch1 = ["ド", "デ", "ネ", "ゲ", "レ", "ル", 
                 "リ", "ム", "ミ", "メ", "ファ", "ヴァ", 
                 "フィ", "ショ", "ソ", "ゴ", "ゾ", "マ", 
-                "ラ", "ワ", "セ", "ゼ", "シ", "ス"][(calcpitch() + 48) % 24];
+                "ラ", "ワ", "セ", "ゼ", "シ", "ス"];
+            function calc() {
+                const p = (calcpitch() + 48) % 24;
+                document.getElementById("res").textContent = pitch1[p] + " (" + pitch2[p] + ")";
             }
             
             function calcpitch() {
