@@ -93,8 +93,49 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const KEYMAP = {\r\n\t90: [60, \"Z\"], // Z: C4\r\n\t83: [61, \"S\"], // S: C#4\r\n\t88: [62, \"X\"], // X: D4\r\n\t68: [63, \"D\"], // D: D#4\r\n\t67: [64, \"C\"], // C: E4\r\n\t86: [65, \"V\"], // V: F4\r\n\t71: [66, \"G\"], // G: F#4\r\n\t66: [67, \"B\"], // B: G4\r\n\t72: [68, \"H\"], // H: G#4\r\n\t78: [69, \"N\"], // N: A4\r\n\t74: [70, \"J\"], // J: A#4\r\n\t77: [71, \"M\"], // M: B4\r\n\t188: [72, \"\"], // ,: C5\r\n\t76: [73, \"\"], // L: C#5\r\n\t190: [74, \"\"], // .: D5\r\n\t187: [75, \"\"], // ;: D#5\r\n\t191: [76, \"\"], // /: E5\r\n\t226: [77, \"\"], // \\: F5\r\n\r\n\t81: [\"72\", \"Q\"], // Q: C5\r\n\t50: [\"73\", \"2\"], // 2: C#5\r\n\t87: [\"74\", \"W\"], // W: D5\r\n\t51: [\"75\", \"3\"], // 3: D#5\r\n\t69: [\"76\", \"E\"], // E: E5\r\n\t82: [\"77\", \"R\"], // R: F5\r\n\t53: [\"78\", \"5\"], // 5: F#5\r\n\t84: [\"79\", \"T\"], // T: G5\r\n\t54: [\"80\", \"6\"], // 6: G#5\r\n\t89: [\"81\", \"Y\"], // Y: A5\r\n\t55: [\"82\", \"7\"], // 7: A#5\r\n\t85: [\"83\", \"U\"], // U: B5\r\n\t73: [\"84\", \"I\"], // I: C6\r\n\t57: [\"85\", \"9\"], // 9: C#6\r\n\t79: [\"86\", \"O\"], // O: D6\r\n\t48: [\"87\", \"0\"], // 0: D#6\r\n\t80: [\"88\", \"P\"], // P: E6\r\n\t192: [\"89\", \"@\"], // @: F6\r\n\t222: [\"90\", \"^\"], // ^: F#6\r\n\t219: [\"91\", \"[\"], // [: G6\r\n};\r\nmodule.exports = KEYMAP;\r\n\n\n//# sourceURL=webpack:///./app/keymap.js?");
-
+  const KEYMAP = {
+    90: [60, "Z"], // Z: C4
+    83: [61, "S"], // S: C#4
+    88: [62, "X"], // X: D4
+    68: [63, "D"], // D: D#4
+    67: [64, "C"], // C: E4
+    86: [65, "V"], // V: F4
+    71: [66, "G"], // G: F#4
+    66: [67, "B"], // B: G4
+    72: [68, "H"], // H: G#4
+    78: [69, "N"], // N: A4
+    74: [70, "J"], // J: A#4
+    77: [71, "M"], // M: B4
+    188: [72, ""], // ,: C5
+    76: [73, ""], // L: C#5
+    190: [74, ""], // .: D5
+    187: [75, ""], // ;: D#5
+    191: [76, ""], // /: E5
+    226: [77, ""], // \\: F5
+  
+    81: ["60.5", "Q"], // Q: C‡4
+    50: ["61.5", "2"], // 2: C#‡4
+    87: ["62.5", "W"], // W: D‡4
+    51: ["63.5", "3"], // 3: D#‡4
+    69: ["64.5", "E"], // E: E‡4
+    82: ["65.5", "R"], // R: F‡4
+    53: ["66.5", "5"], // 5: F#‡4
+    84: ["67.5", "T"], // T: G‡4
+    54: ["68.5", "6"], // 6: G#‡4
+    89: ["69.5", "Y"], // Y: A‡4
+    55: ["70.5", "7"], // 7: A#‡4
+    85: ["71.5", "U"], // U: B‡4
+    73: ["72.5", "I"], // I: C‡5
+    57: ["73.5", "9"], // 9: C#‡5
+    79: ["74.5", "O"], // O: D‡5
+    48: ["75.5", "0"], // 0: D#‡5
+    80: ["76.5", "P"], // P: E‡5
+    192: ["77.5", "@"], // @: F‡5
+    222: ["78.5", "^"], // ^: F#‡5
+    219: ["79.5", "["], // [: G‡5
+  };
+  module.exports = KEYMAP;
+  
 /***/ }),
 
 /***/ "./app/main.js":
@@ -126,7 +167,209 @@ eval("module.exports = {\"oscType\":{\"default\":\"sawtooth\"},\"fltFreq\":{\"de
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const TUNING_FREQ = 261.63;\r\nconst TUNING = [1, 16/15, 9/8, 6/5, 5/4, 4/3, 45/32, 3/2, 8/5, 5/3, 16/9, 15/8];\r\nconst POLY_NUM = 16\r\nconst settings = __webpack_require__(/*! ./settings.json */ \"./app/settings.json\");\r\n\r\nclass Synthesizer {\r\n\tconstructor(ctx = new AudioContext()) {\r\n\t\tthis.ctx = ctx;\r\n\t\tthis.param = getDefaultParam();\r\n\t\tthis.osc = [];\r\n\t\tthis.amp = [];\r\n\t\tthis.flt = [];\r\n\t\tthis.moduleStates = [];\r\n\t\tthis.ampAnalyser = ctx.createAnalyser();\r\n\t\tthis.ampAnalyser.fftSize = 1024;\r\n\t\tthis.ampAnalyser.smoothingTimeConstant = 0;\r\n\t\tthis.fltAnalyser = ctx.createAnalyser();\r\n\t\tthis.fltAnalyser.fftSize = 1024;\r\n\t\tthis.fltAnalyser.smoothingTimeConstant = 0;\r\n\t\tthis.masterGain = ctx.createGain();\r\n\t\tthis.dummyOsc = ctx.createOscillator();\r\n\t\tthis.dummyOsc.setPeriodicWave(ctx.createPeriodicWave(new Float32Array([0]), new Float32Array([0])));\r\n\t\tthis.dummyOsc.start();\r\n\t\tthis.dummyOsc.connect(this.ampAnalyser);\r\n\r\n\t\tthis.masterGain.connect(ctx.destination);\r\n\t\tthis.masterGain.gain.value = this.param.masterVolume;\r\n\r\n\t\tfor (let i = 0; i < POLY_NUM; i++) {\r\n\t\t\tthis.osc[i] = ctx.createOscillator();\r\n\t\t\tthis.osc[i].type = this.param.oscType;\r\n\t\t\tthis.amp[i] = ctx.createGain();\r\n\t\t\tthis.amp[i].gain.value = 0;\r\n\t\t\tthis.flt[i] = ctx.createBiquadFilter();\r\n\t\t\tthis.flt[i].type = \"lowpass\";\r\n\t\t\tthis.flt[i].Q.value = this.param.fltRes;\r\n\t\t\tthis.flt[i].frequency.value = this.param.fltFreq;\r\n\r\n\t\t\tthis.osc[i].connect(this.amp[i]);\r\n\t\t\tthis.amp[i].connect(this.flt[i]);\r\n\t\t\tthis.amp[i].connect(this.ampAnalyser);\r\n\t\t\tthis.dummyOsc.connect(this.flt[i]);\r\n\t\t\tthis.flt[i].connect(this.masterGain);\r\n\t\t\tthis.flt[i].connect(this.fltAnalyser);\r\n\t\t\tthis.osc[i].start();\r\n\t\t\tthis.moduleStates[i] = {state: 0, note: -1};\r\n\t\t}\r\n\t}\r\n\r\n\tnoteOn(note) {\r\n\t\tif (this.ctx.state == \"suspended\") {\r\n\t\t\tthis.ctx.resume().then(() => {\r\n\t\t\t\tthis.noteOn(note);\r\n\t\t\t});\r\n\t\t\treturn;\r\n\t\t}\r\n\r\n\t\tlet moduleId = -1;\r\n\t\tthis.updateModuleStates();\r\n\t\tfor (let i = 0; i < POLY_NUM; i++) {\r\n\t\t\tif (this.moduleStates[i].state == 1 && this.moduleStates[i].note == note) {\r\n\t\t\t\treturn;\r\n\t\t\t}\r\n\t\t}\r\n\t\tfor (let i = 0; i < POLY_NUM; i++) {\r\n\t\t\tif (!this.moduleStates[i].state) {\r\n\t\t\t\tmoduleId = i;\r\n\t\t\t\tbreak;\r\n\t\t\t}\r\n\t\t}\r\n\t\tif (moduleId == -1) {\r\n\t\t\tlet earliestTime;\r\n\t\t\tfor (let i = 0; i < POLY_NUM; i++) {\r\n\t\t\t\tif (this.moduleStates[i].state == 2 && (moduleId == -1 || this.moduleStates[i].time < earliestTime)) {\r\n\t\t\t\t\tearliestTime = this.moduleStates[i].time;\r\n\t\t\t\t\tmoduleId = i;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\t\tif (moduleId == -1) {\r\n\t\t\tlet earliestTime;\r\n\t\t\tfor (let i = 0; i < POLY_NUM; i++) {\r\n\t\t\t\tif (moduleId == -1 || this.moduleStates[i].time < earliestTime) {\r\n\t\t\t\t\tearliestTime = this.moduleStates[i].time;\r\n\t\t\t\t\tmoduleId = i;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\tlet ampSchedule = [\r\n\t\t\t{value: 0, time: 0, jump:true},\r\n\t\t\t{value: this.param.ampA1Level, time: this.param.ampA1Time},\r\n\t\t\t{value: this.param.ampA2Level, time: this.param.ampA2Time}\r\n\t\t];\r\n\t\tsetAudioParam(this.ctx, this.flt[moduleId].frequency, this.param.fltFreq + this.param.fltTrack * noteToFreq(note));\r\n\t\tscheduleAudioParam(this.ctx, this.amp[moduleId].gain, ampSchedule);\r\n\t\t//ampのgainが0だとparamの変更が反映されないことがある問題の回避\r\n\t\tsetAudioParam(this.ctx, this.osc[moduleId].frequency, noteToFreq(note));\r\n\t\tsetTimeout(() => {\r\n\t\t\tsetAudioParam(this.ctx, this.osc[moduleId].frequency, noteToFreq(note));\r\n\t\t}, 0);\t\t\r\n\t\tthis.moduleStates[moduleId] = {\r\n\t\t\tstate: 1,\r\n\t\t\tnote,\r\n\t\t\tampSchedule,\r\n\t\t\ttime: this.ctx.currentTime\r\n\t\t};\r\n\t}\r\n\r\n\tnoteOff(note) {\r\n\t\tfor (let i = 0; i < POLY_NUM; i++) {\r\n\t\t\tif (this.moduleStates[i].state == 1 && this.moduleStates[i].note == note) {\r\n\t\t\t\tif (this.param.ampReleaseTime > 0) {\r\n\t\t\t\t\tlet ampSchedule = [{value: 0, time: this.param.ampReleaseTime}];\r\n\t\t\t\t\tscheduleAudioParam(this.ctx, this.amp[i].gain, ampSchedule);\r\n\t\t\t\t\tthis.moduleStates[i].state = 2;\r\n\t\t\t\t\tthis.moduleStates[i].ampSchedule = ampSchedule\r\n\t\t\t\t\tthis.moduleStates[i].time = this.ctx.currentTime;\r\n\t\t\t\t} else {\r\n\t\t\t\t\tthis.moduleStates[i].state = 0;\r\n\t\t\t\t\tsetAudioParam(this.ctx, this.amp[i].gain, 0);\r\n\t\t\t\t}\r\n\t\t\t\tbreak;\r\n\t\t\t}\r\n\t\t};\r\n\t}\r\n\r\n\tallNoteOff() {\r\n\t\tfor (let i = 0; i < POLY_NUM; i++) {\r\n\t\t\tsetAudioParam(this.ctx, this.amp[i].gain, 0);\r\n\t\t\tthis.moduleStates[i].state = 0;\r\n\t\t}\r\n\t}\r\n\r\n\tupdateModuleStates() {\r\n\t\tlet time = this.ctx.currentTime;\r\n\t\tthis.moduleStates.forEach(module => {\r\n\t\t\tif (module.state == 2) {\r\n\t\t\t\tif (module.ampSchedule[module.ampSchedule.length - 1].time < time - module.time) {\r\n\t\t\t\t\tmodule.state = 0;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t});\r\n\t}\r\n\r\n\tsetParam(param) {\r\n\t\tlet prevParam = this.param;\r\n\t\tthis.param = Object.assign({}, this.param, param);\r\n\r\n\t\tthis.updateModuleStates();\r\n\t\tfor (let i = 0; i < POLY_NUM; i++) {\r\n\t\t\tif (prevParam.oscType != this.param.oscType) {\r\n\t\t\t\tthis.osc[i].type = this.param.oscType;\r\n\t\t\t}\r\n\t\t\tif (prevParam.fltRes != this.param.fltRes) {\r\n\t\t\t\tsetAudioParam(this.ctx, this.flt[i].Q, this.param.fltRes);\r\n\t\t\t}\r\n\t\t\tif (this.moduleStates[i].state) {\r\n\t\t\t\tif (prevParam.fltFreq != this.param.fltFreq || prevParam.fltTrack != this.param.fltTrack) {\r\n\t\t\t\t\tsetAudioParam(this.ctx, this.flt[i].frequency, this.param.fltFreq + this.param.fltTrack * noteToFreq(this.moduleStates[i].note));\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\t\tif (prevParam.masterVolume != this.param.masterVolume) {\r\n\t\t\tsetAudioParam(this.ctx, this.masterGain.gain, this.param.masterVolume);\r\n\t\t}\r\n\t}\r\n}\r\n\r\nfunction noteToFreq(note) {\r\n\treturn TUNING_FREQ * Math.pow(2, Math.floor((note - 60) / 12)) * TUNING[note % 12];\r\n}\r\n\r\nfunction setAudioParam(audioContext, audioParam, value) {\r\n\taudioParam.cancelScheduledValues(audioContext.currentTime);\r\n\taudioParam.setValueAtTime(value, audioContext.currentTime);\r\n}\r\n\r\nfunction scheduleAudioParam(audioContext, audioParam, schedule) {\r\n\tlet time = audioContext.currentTime;\r\n\taudioParam.cancelScheduledValues(time);\r\n\taudioParam.setValueAtTime(audioParam.value, time);\r\n\tschedule.forEach(key => {\r\n\t\tif (key.jump) {\r\n\t\t\taudioParam.setValueAtTime(key.value, time + key.time);\r\n\t\t} else {\r\n\t\t\taudioParam.linearRampToValueAtTime(key.value, time + key.time);\r\n\t\t}\r\n\t});\r\n}\r\n\r\nfunction getDefaultParam() {\r\n\tlet param = {};\r\n\tfor (let key in settings) {\r\n\t\tif (settings.hasOwnProperty(key)) {\r\n\t\t\tif (settings[key].hasOwnProperty(\"default\")) {\r\n\t\t\t\tparam[key] = settings[key].default;\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\treturn param;\r\n}\r\nmodule.exports = Synthesizer;\r\n\n\n//# sourceURL=webpack:///./app/synthesizer.js?");
+  const TUNING_FREQ = 261.63;
+  const POLY_NUM = 16
+  const settings = __webpack_require__( "./app/settings.json");
+  
+  class Synthesizer {
+    constructor(ctx = new AudioContext()) {
+      this.ctx = ctx;
+      this.param = getDefaultParam();
+      this.osc = [];
+      this.amp = [];
+      this.flt = [];
+      this.moduleStates = [];
+      this.ampAnalyser = ctx.createAnalyser();
+      this.ampAnalyser.fftSize = 1024;
+      this.ampAnalyser.smoothingTimeConstant = 0;
+      this.fltAnalyser = ctx.createAnalyser();
+      this.fltAnalyser.fftSize = 1024;
+      this.fltAnalyser.smoothingTimeConstant = 0;
+      this.masterGain = ctx.createGain();
+      this.dummyOsc = ctx.createOscillator();
+      this.dummyOsc.setPeriodicWave(ctx.createPeriodicWave(new Float32Array([0]), new Float32Array([0])));
+      this.dummyOsc.start();
+      this.dummyOsc.connect(this.ampAnalyser);
+  
+      this.masterGain.connect(ctx.destination);
+      this.masterGain.gain.value = this.param.masterVolume;
+  
+      for (let i = 0; i < POLY_NUM; i++) {
+        this.osc[i] = ctx.createOscillator();
+        this.osc[i].type = this.param.oscType;
+        this.amp[i] = ctx.createGain();
+        this.amp[i].gain.value = 0;
+        this.flt[i] = ctx.createBiquadFilter();
+        this.flt[i].type = "lowpass";
+        this.flt[i].Q.value = this.param.fltRes;
+        this.flt[i].frequency.value = this.param.fltFreq;
+  
+        this.osc[i].connect(this.amp[i]);
+        this.amp[i].connect(this.flt[i]);
+        this.amp[i].connect(this.ampAnalyser);
+        this.dummyOsc.connect(this.flt[i]);
+        this.flt[i].connect(this.masterGain);
+        this.flt[i].connect(this.fltAnalyser);
+        this.osc[i].start();
+        this.moduleStates[i] = {state: 0, note: -1};
+      }
+    }
+  
+    noteOn(note) {
+      if (this.ctx.state == "suspended") {
+        this.ctx.resume().then(() => {
+          this.noteOn(note);
+        });
+        return;
+      }
+  
+      let moduleId = -1;
+      this.updateModuleStates();
+      for (let i = 0; i < POLY_NUM; i++) {
+        if (this.moduleStates[i].state == 1 && this.moduleStates[i].note == note) {
+          return;
+        }
+      }
+      for (let i = 0; i < POLY_NUM; i++) {
+        if (!this.moduleStates[i].state) {
+          moduleId = i;
+          break;
+        }
+      }
+      if (moduleId == -1) {
+        let earliestTime;
+        for (let i = 0; i < POLY_NUM; i++) {
+          if (this.moduleStates[i].state == 2 && (moduleId == -1 || this.moduleStates[i].time < earliestTime)) {
+            earliestTime = this.moduleStates[i].time;
+            moduleId = i;
+          }
+        }
+      }
+      if (moduleId == -1) {
+        let earliestTime;
+        for (let i = 0; i < POLY_NUM; i++) {
+          if (moduleId == -1 || this.moduleStates[i].time < earliestTime) {
+            earliestTime = this.moduleStates[i].time;
+            moduleId = i;
+          }
+        }
+      }
+  
+      let ampSchedule = [
+        {value: 0, time: 0, jump:true},
+        {value: this.param.ampA1Level, time: this.param.ampA1Time},
+        {value: this.param.ampA2Level, time: this.param.ampA2Time}
+      ];
+      setAudioParam(this.ctx, this.flt[moduleId].frequency, this.param.fltFreq + this.param.fltTrack * noteToFreq(note));
+      scheduleAudioParam(this.ctx, this.amp[moduleId].gain, ampSchedule);
+      //ampのgainが0だとparamの変更が反映されないことがある問題の回避
+      setAudioParam(this.ctx, this.osc[moduleId].frequency, noteToFreq(note));
+      setTimeout(() => {
+        setAudioParam(this.ctx, this.osc[moduleId].frequency, noteToFreq(note));
+      }, 0);		
+      this.moduleStates[moduleId] = {
+        state: 1,
+        note,
+        ampSchedule,
+        time: this.ctx.currentTime
+      };
+    }
+  
+    noteOff(note) {
+      for (let i = 0; i < POLY_NUM; i++) {
+        if (this.moduleStates[i].state == 1 && this.moduleStates[i].note == note) {
+          if (this.param.ampReleaseTime > 0) {
+            let ampSchedule = [{value: 0, time: this.param.ampReleaseTime}];
+            scheduleAudioParam(this.ctx, this.amp[i].gain, ampSchedule);
+            this.moduleStates[i].state = 2;
+            this.moduleStates[i].ampSchedule = ampSchedule
+            this.moduleStates[i].time = this.ctx.currentTime;
+          } else {
+            this.moduleStates[i].state = 0;
+            setAudioParam(this.ctx, this.amp[i].gain, 0);
+          }
+          break;
+        }
+      };
+    }
+  
+    allNoteOff() {
+      for (let i = 0; i < POLY_NUM; i++) {
+        setAudioParam(this.ctx, this.amp[i].gain, 0);
+        this.moduleStates[i].state = 0;
+      }
+    }
+  
+    updateModuleStates() {
+      let time = this.ctx.currentTime;
+      this.moduleStates.forEach(module => {
+        if (module.state == 2) {
+          if (module.ampSchedule[module.ampSchedule.length - 1].time < time - module.time) {
+            module.state = 0;
+          }
+        }
+      });
+    }
+  
+    setParam(param) {
+      let prevParam = this.param;
+      this.param = Object.assign({}, this.param, param);
+  
+      this.updateModuleStates();
+      for (let i = 0; i < POLY_NUM; i++) {
+        if (prevParam.oscType != this.param.oscType) {
+          this.osc[i].type = this.param.oscType;
+        }
+        if (prevParam.fltRes != this.param.fltRes) {
+          setAudioParam(this.ctx, this.flt[i].Q, this.param.fltRes);
+        }
+        if (this.moduleStates[i].state) {
+          if (prevParam.fltFreq != this.param.fltFreq || prevParam.fltTrack != this.param.fltTrack) {
+            setAudioParam(this.ctx, this.flt[i].frequency, this.param.fltFreq + this.param.fltTrack * noteToFreq(this.moduleStates[i].note));
+          }
+        }
+      }
+      if (prevParam.masterVolume != this.param.masterVolume) {
+        setAudioParam(this.ctx, this.masterGain.gain, this.param.masterVolume);
+      }
+    }
+  }
+  
+  function noteToFreq(note) {
+    return TUNING_FREQ * Math.pow(2, (note - 60) / 12);
+  }
+  
+  function setAudioParam(audioContext, audioParam, value) {
+    audioParam.cancelScheduledValues(audioContext.currentTime);
+    audioParam.setValueAtTime(value, audioContext.currentTime);
+  }
+  
+  function scheduleAudioParam(audioContext, audioParam, schedule) {
+    let time = audioContext.currentTime;
+    audioParam.cancelScheduledValues(time);
+    audioParam.setValueAtTime(audioParam.value, time);
+    schedule.forEach(key => {
+      if (key.jump) {
+        audioParam.setValueAtTime(key.value, time + key.time);
+      } else {
+        audioParam.linearRampToValueAtTime(key.value, time + key.time);
+      }
+    });
+  }
+  
+  function getDefaultParam() {
+    let param = {};
+    for (let key in settings) {
+      if (settings.hasOwnProperty(key)) {
+        if (settings[key].hasOwnProperty("default")) {
+          param[key] = settings[key].default;
+        }
+      }
+    }
+    return param;
+  }
+  module.exports = Synthesizer;
+  
 
 /***/ }),
 
@@ -853,8 +1096,8 @@ eval("const TUNING_FREQ = 261.63;\r\nconst TUNING = [1, 16/15, 9/8, 6/5, 5/4, 4/
       let keyW = this.w / toneRange;
       let note = 60;
       for (let i = 0; i < toneRange; i++) {
-        let key = new KeyButton(this.view, this.x + keyW * i, this.y, keyW, this.h * 0.35, note, false);
-        let key2 = new KeyButton(this.view, this.x + keyW * (i + 0.5), this.y + this.h * 0.45, keyW, this.h * 0.35, note + 0.5, false);
+        let key = new KeyButton(this.view, this.x + keyW * i, this.y + this.h * 0.45, keyW, this.h * 0.35, note, false);
+        let key2 = new KeyButton(this.view, this.x + keyW * (i + 0.5), this.y, keyW, this.h * 0.35, note + 0.5, false);
         key.mouseCapture = this;
         key2.mouseCapture = this;
         key.on("mousedown", this.mousedown.bind(this, key));
@@ -873,8 +1116,8 @@ eval("const TUNING_FREQ = 261.63;\r\nconst TUNING = [1, 16/15, 9/8, 6/5, 5/4, 4/
       note = 61;
       for (let i = 0; i < toneRange - 1; i++) {
         if (blackKeys[i % 7]) {
-          let key = new KeyButton(this.view, this.x + keyW * (i + 0.7), this.y, keyW * 0.6, this.h * 0.35 / 2, note, true);
-          let key2 = new KeyButton(this.view, this.x + keyW * (i + 1.2), this.y + this.h * 0.45, keyW * 0.6, this.h * 0.35 / 2, note + 0.5, true);
+          let key = new KeyButton(this.view, this.x + keyW * (i + 0.7), this.y + this.h * 0.45, keyW * 0.6, this.h * 0.35 / 2, note, true);
+          let key2 = new KeyButton(this.view, this.x + keyW * (i + 1.2), this.y , keyW * 0.6, this.h * 0.35 / 2, note + 0.5, true);
           key.mouseCapture = this;
           key2.mouseCapture = this;
           key.on("mousedown", this.mousedown.bind(this, key));
