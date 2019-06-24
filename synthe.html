@@ -30,7 +30,16 @@
 <body>
 	<a href="http://na2co3.exp.jp/lanerme-keyboard/">これ</a>を丸パクリしました<br>
 	<hr>
+	<div id="foo">
 	<canvas id="canvas" width="520" height="770"></canvas>
 	<div id="cover"></div>
+	</div>
+	<script>
+		if (typeof navigator.requestMIDIAccess !== "function") {
+			document.getElementById("foo").innerHTML = 
+			"<a href='https://developer.mozilla.org/en-US/docs/Web/API/MIDIAccess'>MIDIAccess</a>という機能がChromeとOperaにしかないので、Chrome使ってください<br>"
+				+ "<img src='compatibility.png' width='600'/>"
+		}
+		</script>
 </body>
 </html>
