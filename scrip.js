@@ -1079,6 +1079,18 @@ eval("module.exports = {\"oscType\":{\"default\":\"sawtooth\"},\"fltFreq\":{\"de
         ctx.fillStyle = isActive ? "#f00" : this.hover ? "#ffa" : "#fff";
       }
       ctx.fillRect(this.x, this.y, this.w , this.h );
+      
+      
+      ctx.fillStyle = "#888";
+      let text = ["ド", "デ", "ネ", "ゲ", "レ", "ル", 
+      "リ", "ム", "ミ", "メ", "ファ", "ヴァ", 
+      "フィ", "ショ", "ソ", "ゴ", "ゾ", "マ", 
+      "ラ", "ワ", "セ", "ゼ", "シ", "ス"][(this.note * 2) % 24];
+      ctx.font = 'bold ' + (text.length == 2 ? '9' : '12') +'px "Unknown Font", sans-serif';
+      ctx.textAlign = 'center'
+      ctx.fillText(text, this.x + this.w * 0.5, this.y + this.h * 0.85);
+      
+      
       ctx.strokeStyle = "black";
       ctx.lineWidth = 1;
       ctx.strokeRect(this.x + 0.5, this.y + 0.5, this.w - 1, this.h - 1);
