@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body onload="calc()">
+        <div style="font-size: 120%">
+        <select id="pitch" onblur="calc()" onfocus="calc()" onchange="calc()">
+                <option>ド</option>
+                <option>デ</option>
+                <option>ネ</option>
+                <option>ゲ</option>
+                <option>レ</option>
+                <option>ル</option>
+                <option>リ</option>
+                <option>ム</option>
+                <option>ミ</option>
+                <option>メ</option>
+                <option>ファ</option>
+                <option>ヴァ</option>
+                <option>フィ</option>
+                <option>ショ</option>
+                <option>ソ</option>
+                <option>ゴ</option>
+                <option>ゾ</option>
+                <option>マ</option>
+                <option>ラ</option>
+                <option>ワ</option>
+                <option>セ</option>
+                <option>ゼ</option>
+                <option>シ</option>
+                <option>ス</option>
+        </select> を
+        <select id="interval" onblur="calc()" onfocus="calc()" onchange="calc()">
+                <option>perfect unison</option>
+                <option>major unison / infra second</option>
+                <option>augmented unison / minor second</option>
+                <option>neutral second</option>
+                <option>major second</option>
+                <option>ultra second / infra third</option>
+                <option>minor third</option>
+                <option>neutral third</option>
+                <option>major third / diminished fourth</option>
+                <option>ultra third / minor fourth</option>
+                <option>perfect fourth</option>
+                <option>major fourth / minor tritone</option>
+                <option>augmented fourth / Tritone / diminished fifth</option>
+                <option>major tritone / minor fifth</option>
+                <option>perfect fifth</option>
+                <option>major fifth / minor tetratone / infra sixth</option>
+                <option>augmented fifth / Tetratone / minor sixth</option>
+                <option>major tetratone / neutral sixth</option>
+                <option>major sixth</option>
+                <option>ultra sixth / infra seventh</option>
+                <option>minor seventh</option>
+                <option>neutral seventh</option>
+                <option>major seventh / diminished octave</option>
+                <option>ultra seventh / minor octave</option>
+                <option>octave</option>
+                <option>major octave</option>
+                <option>augmented octave</option>
+        </select>
+        <select id="direction" onblur="calc()" onfocus="calc()" onchange="calc()">
+            <option>上げる</option>
+            <option>下げる</option>
+        </select>
+        と <span id="res"></span>
+        </div>
+        <hr>
+        <a href="https://twitter.com/OrangeTheKeyqa/status/1142429621285056519">出典</a>
+        <script>
+            function calc(){
+                document.getElementById("res").textContent =
+                ["ド", "デ", "ネ", "ゲ", "レ", "ル", 
+                "リ", "ム", "ミ", "メ", "ファ", "ヴァ", 
+                "フィ", "ショ", "ソ", "ゴ", "ゾ", "マ", 
+                "ラ", "ワ", "セ", "ゼ", "シ", "ス"][(calcpitch() + 48) % 24];
+            }
+            
+            function calcpitch() {
+                return document.getElementById("pitch").options.selectedIndex + document.getElementById("interval").options.selectedIndex * [1, -1][document.getElementById("direction").options.selectedIndex];
+            }
+        </script>
+    </body>
+</html>
