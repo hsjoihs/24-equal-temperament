@@ -28,19 +28,19 @@
 	</style>
 </head>
 <body>
-	<a href="http://na2co3.exp.jp/lanerme-keyboard/">これ</a>を丸パクリしました<br>
-	<a href="https://togetter.com/li/1362961">音の名前の由来</a>
+	<a href="index.html">トップページに戻る</a><br>
+	シンセ部分の作者：<a href="https://twitter.com/na2co3_ftw">@na2co3_ftw</a>
 	<hr>
 	<div id="foo">
 	<canvas id="canvas" width="520" height="770"></canvas>
 	<div id="cover"></div>
 	</div>
 	<script>
-		if (typeof navigator.requestMIDIAccess !== "function") {
-			document.getElementById("foo").innerHTML = 
-			"<a href='https://developer.mozilla.org/en-US/docs/Web/API/MIDIAccess'>MIDIAccess</a>という機能がChromeとOperaにしかないので、Chrome使ってください<br>"
-				+ "<img src='compatibility.png' width='600'/>"
-		}
-		</script>
+	if (typeof navigator.requestMIDIAccess !== "function") {
+		document.getElementById("foo").innerHTML = 
+		"<a href='https://developer.mozilla.org/en-US/docs/Web/API/MIDIAccess'>MIDIAccess</a>という機能がChromeとOperaにしかないので、Chrome使ってください<br>"
+			+ "<img src='compatibility.png' width='600'/>"
+	}
+	</script>
 </body>
 </html>
