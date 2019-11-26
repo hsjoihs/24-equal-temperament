@@ -26,14 +26,27 @@
 			display: none;
 		}
 	</style>
+	<script>
+	function toggle() {
+		if (document.getElementById('hide').style.display !== 'block'){ 
+			document.getElementById('hide').style.display = 'block'; 
+			document.getElementById('button1').value = '目隠しを外す'
+			document.getElementById('button2').value = '目隠しを外す'
+		} else { 
+			document.getElementById('hide').style.display = 'none'; 
+			document.getElementById('button1').value = '目隠しをつける'
+			document.getElementById('button2').value = '目隠しをつける'
+		}
+	}
+	</script>
 </head>
 <body>
 	<a href="index.html">トップページに戻る</a><br>
 	シンセ部分の作者：<a href="https://twitter.com/na2co3_ftw">@na2co3_ftw</a><br>
-	<input type="button" onclick="document.getElementById('hide').style.display = 'block';" value="目隠しをつける">
+	<input id="button1" type="button" onclick="toggle()" value="目隠しをつける">
 	<hr>
 	<div id="foo" style="position:relative;">
-			<div id="hide" style="width:600px; height: 200px; background-color: white; border: 1px solid blue; position: absolute; top: 590px; text-align: center; display: none">目隠し</div>
+			<div id="hide" style="width:600px; height: 200px; background-color: white; border: 1px solid blue; position: absolute; top: 590px; text-align: center; display: none; padding: 20px;">目隠し<br><input id="button2" type="button" onclick="toggle()" value="目隠しをつける"></div>
 	<canvas id="canvas" width="520" height="770"></canvas>
 	<div id="cover"></div>
 	</div>
