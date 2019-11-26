@@ -29,9 +29,11 @@
 </head>
 <body>
 	<a href="index.html">トップページに戻る</a><br>
-	シンセ部分の作者：<a href="https://twitter.com/na2co3_ftw">@na2co3_ftw</a>
+	シンセ部分の作者：<a href="https://twitter.com/na2co3_ftw">@na2co3_ftw</a><br>
+	<input type="button" onclick="document.getElementById('hide').style.display = 'block';" value="目隠しをつける">
 	<hr>
-	<div id="foo">
+	<div id="foo" style="position:relative;">
+			<div id="hide" style="width:600px; height: 200px; background-color: white; border: 1px solid blue; position: absolute; top: 590px; text-align: center; display: none">目隠し</div>
 	<canvas id="canvas" width="520" height="770"></canvas>
 	<div id="cover"></div>
 	</div>
